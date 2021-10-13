@@ -6,6 +6,8 @@ import Edit from './record/edit';
 import RecordList from './record/recordlist';
 import Create from "./record/create";
 
+import "bootstrap/dist/css/bootstrap.css"
+
 function App() {
   return (
     <div className="App">

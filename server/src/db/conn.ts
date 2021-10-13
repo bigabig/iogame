@@ -17,6 +17,6 @@ export function connectToServer(callback: (err: AnyError) => void) {
     });
 }
 
-export function getDb() {
+export function getDb(): Db {
     return _db;
 }

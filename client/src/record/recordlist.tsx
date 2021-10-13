@@ -2,18 +2,15 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Record, {RecordType} from "./record";
 
-type RecordListState = {
-    records: RecordType[]
-}
-
 export default function RecordList() {
-    const [state, setState] = useState<RecordListState>({records: []});
+    const [state, setState] = useState<RecordType[]>([]);
 
     // This method will get the data from the database.
     useEffect( () => {
         axios
             .get("http://localhost:5000/record/")
             .then((response) => {
+                console.log(response);
                 setState(response.data);
             })
             .catch(function (error) {
@@ -27,14 +24,12 @@ export default function RecordList() {
             console.log(response.data);
         });
 
-        setState({
-            records: state.records.filter((el) => el.id !== id),
-        });
+        setState(state.filter((el) => el.id !== id));
     }
 
     // This method will map out the users on the table
     const recordList = () => {
-        return state.records.map((currentrecord) => {
+        return state.map((currentrecord) => {
             return (
                 <Record person_name={currentrecord.person_name}
                         person_position={currentrecord.person_position}

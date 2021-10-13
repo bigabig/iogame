@@ -27,16 +27,20 @@ services:
     # (Adding the "ports" property to this file will not forward from a Codespace.)
 
   db:
-    container_name: mongodbdev
+    container_name: mongodbdev2
     image: mongo:latest
     restart: unless-stopped
     volumes:
       - mongodb-data:/data/db
-    # Uncomment to change startup options
-    # environment:
-    #  MONGO_INITDB_ROOT_USERNAME: root
-    #  MONGO_INITDB_ROOT_PASSWORD: example
-    #  MONGO_INITDB_DATABASE: your-database-here
+    # mongodb://root:password@localhost:27017/iogamedb?authSource=admin
+    environment:
+      MONGO_USER: user
+      MONGO_PASSWORD: password
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: iogamedb
+    # ports:
+    #  - 27017:27017
 
     # Add "forwardPorts": ["27017"] to **devcontainer.json** to forward MongoDB locally.
     # (Adding the "ports" property to this file will not forward from a Codespace.)

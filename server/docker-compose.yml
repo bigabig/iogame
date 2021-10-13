@@ -9,8 +9,6 @@ services:
     image: mongo:latest
     env_file:
       - mongo.env
-    environment:
-      MONGO_INITDB_DATABASE: iogamedb
     volumes:
       - mongo-data:/data/db
     ports:

@@ -1,15 +1,18 @@
+import * as dotenv from "dotenv";
+dotenv.config({path: "./config.env"});
+
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import {recordRoutes} from "./routes/record";
+import * as dbo from "./db/conn";
 
-dotenv.config({path: "./config.env"})
+console.log(process.env.PORT);
 const port = process.env.PORT || 3000;
 
 const app = express();
 app.use(cors());
-app.use(express.json())
-app.use(recordRoutes)
+app.use(express.json());
+app.use(recordRoutes);
 
 
 app.get("/", (req, res) => {
@@ -17,5 +20,11 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server started at http://localhost:${port}`)
-})
+  // perform a database connection when server starts
+  dbo.connectToServer(function (err) {
+    if (err) {
+        console.error(err);
+    }
+  });
+  console.log(`Server is running on port: ${port}`);
+});
